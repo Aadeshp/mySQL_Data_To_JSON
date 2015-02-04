@@ -1,17 +1,4 @@
-#include <mysql.h>
-#include <stdio.h>
-#include <stdlib.h>
-
-#include "hashtable.h"
-
-MYSQL *init_mysql(
-        const char *server, 
-        const char *user, 
-        const char *password, 
-        const char *database);
-hash_table **query(MYSQL *conn, const char *query);
-char **get_fields(MYSQL_RES *result);
-unsigned long get_num_cols(MYSQL_RES *result);
+#include "mysql_query.h"
 
 MYSQL *init_mysql(
         const char *server, 
@@ -69,11 +56,4 @@ char **get_fields(MYSQL_RES *result) {
 
 unsigned long get_num_cols(MYSQL_RES *res) {
     return (unsigned long)mysql_num_fields(res);
-}
-
-int main() {
-    MYSQL *sql = init_mysql(/* DATABASE INFO */);
-    hash_table **json = query(sql, /* mySQL Query Here */);
-
-    return 0;
 }
