@@ -5,8 +5,11 @@
 #include "hashtable.h"
 
 hash_table *init_hashtable(unsigned long size) {
-    fprintf(stderr, "ERRORRRR");
-    exit(1);
+    if (size < 1) {
+        fprintf(stderr, "Invalid Size");
+        exit(1);
+    }
+
     hash_table *ht;
 
     if ((ht = (hash_table *)malloc(sizeof(hash_table))) == NULL)
