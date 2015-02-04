@@ -57,3 +57,4 @@ char **get_fields(MYSQL_RES *result) {
 unsigned long get_num_cols(MYSQL_RES *res) {
     return (unsigned long)mysql_num_fields(res);
 }
+
