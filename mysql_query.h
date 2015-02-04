@@ -12,17 +12,17 @@
  * return   Connection with the mySQL Database
  */
 MYSQL *init_mysql(
-        const char *server,
-        const char *user,
-        const char *password,
-        const char *database);
+        char *server,
+        char *user,
+        char *password,
+        char *database);
 
 /*
  * @param   query   mySQL Query such as "SELECT * FROM TABLE_NAME"
  *
  * return   Array of Hashtables, where each Hashtable represents a row in the mySQL Database
  */
-hash_table **query(MYSQL *conn, const char *query);
+hash_table **query(MYSQL *conn, char *query);
 
 /*
  * @param   result  Results returned from mySQL

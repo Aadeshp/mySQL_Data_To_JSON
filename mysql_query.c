@@ -1,10 +1,10 @@
 #include "mysql_query.h"
 
 MYSQL *init_mysql(
-        const char *server, 
-        const char *user, 
-        const char *password, 
-        const char *database) {
+        char *server, 
+        char *user, 
+        char *password, 
+        char *database) {
     MYSQL *conn;
 
     conn = mysql_init(NULL);
@@ -15,26 +15,28 @@ MYSQL *init_mysql(
     return conn;
 }
 
-hash_table **query(MYSQL *conn, const char *query) {
+hash_table **query(MYSQL *conn, char *query) {
     if (mysql_query(conn, query))
         fprintf(stderr, "%s\n", mysql_error(conn));
 
-    MYSQL_RES *result = mysql_use_result(conn);
+    MYSQL_RES *result = mysql_store_result(conn);
     char **fields = get_fields(result);
-
+    
     hash_table **json = malloc(sizeof(hash_table *) * mysql_num_rows(result));
 
     unsigned long numOfCols = get_num_cols(result);
     unsigned long index = 0;
     MYSQL_ROW row;
-    while ((row = mysql_fetch_row(result))) {
-        hash_table *ht = init_hashtable(numOfCols);
+    hash_table *ht;
 
+    while ((row = mysql_fetch_row(result))) {
+        ht = init_hashtable(numOfCols);
+       
         size_t col;
         for (col = 0; col < numOfCols; col++) {
             ht_add(ht, fields[col], row[col]);
         }
-
+    
         json[index++] = ht;
     }
 
@@ -50,7 +52,7 @@ char **get_fields(MYSQL_RES *result) {
         fields[index++] = field->name;
 
     free(field);
-
+    
     return fields;
 }
 
