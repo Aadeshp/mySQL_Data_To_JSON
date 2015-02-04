@@ -1,3 +1,7 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
 typedef struct entry {
     char *key;
     char *value;
@@ -10,7 +14,13 @@ typedef struct hashtable {
 } hash_table;
 
 extern hash_table *init_hashtable(unsigned long size);
+
 extern unsigned int ht_hash_key(hash_table *ht, char *key);
+
 extern entry *get_entry(hash_table *ht, char *key);
+
 extern char *ht_get(hash_table *ht, char *key);
+
 extern void ht_add(hash_table *ht, char *key, char *value);
+
+extern void json_free(hash_table **json);

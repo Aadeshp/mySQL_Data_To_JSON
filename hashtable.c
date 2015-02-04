@@ -1,7 +1,3 @@
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include <limits.h>
 #include "hashtable.h"
 
 hash_table *init_hashtable(unsigned long size) {

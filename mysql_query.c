@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "hashtable.c"
+#include "hashtable.h"
 
 MYSQL *init_mysql(
         const char *server, 
@@ -72,8 +72,8 @@ unsigned long get_num_cols(MYSQL_RES *res) {
 }
 
 int main() {
-    MYSQL *sql = init_mysql(//Database Info Here);
-    hash_table **json = query(sql, //query here);
+    MYSQL *sql = init_mysql(/* DATABASE INFO */);
+    hash_table **json = query(sql, /* mySQL Query Here */);
 
     return 0;
 }
