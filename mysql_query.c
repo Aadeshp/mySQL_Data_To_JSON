@@ -15,14 +15,17 @@ MYSQL *init_mysql(
     return conn;
 }
 
-hash_table **query(MYSQL *conn, char *query) {
+JSON *query(MYSQL *conn, char *query) {
     if (mysql_query(conn, query))
         fprintf(stderr, "%s\n", mysql_error(conn));
 
     MYSQL_RES *result = mysql_store_result(conn);
     char **fields = get_fields(result);
     
-    hash_table **json = malloc(sizeof(hash_table *) * mysql_num_rows(result));
+    size_t rows = mysql_num_rows(result);
+    JSON *json = malloc(sizeof(JSON *));
+    json->size = rows;
+    json->arr_ht = malloc(sizeof(hash_table *) * rows);
 
     unsigned long numOfCols = get_num_cols(result);
     unsigned long index = 0;
@@ -33,11 +36,10 @@ hash_table **query(MYSQL *conn, char *query) {
         ht = init_hashtable(numOfCols);
        
         size_t col;
-        for (col = 0; col < numOfCols; col++) {
+        for (col = 0; col < numOfCols; col++)
             ht_add(ht, fields[col], row[col]);
-        }
     
-        json[index++] = ht;
+        json->arr_ht[index++] = ht;
     }
 
     return json;

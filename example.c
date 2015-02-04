@@ -1,9 +1,12 @@
 #include "mysql_query.h"
 
 int main() {
-    MYSQL *sql = init_mysql(/* DATABASE INFO HERE */);
-    hash_table **json = query(sql, /* mySQL QUERY HERE */);
+    MYSQL *sql = init_mysql("localhost", "root", "@patelindustries990", "codearchive_db");
+    JSON *json = query(sql, "SELECT * FROM CodeArchiveSite_syntaxminipost");
+    
+    int i;
+    for (i = 0; i < json->size; i++)
+        printf("%s\n", ht_get(json->arr_ht[i], "name"));
 
-    //Do What You Want Here
     return 0;
 }

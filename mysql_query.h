@@ -3,6 +3,11 @@
 #include <stdlib.h>
 #include "hashtable.h"
 
+typedef struct JSON {
+    hash_table **arr_ht;
+    size_t size;
+} JSON;
+
 /*
  * @param   server      Server the mySQL Database is Hosted On (Ex: localhost)
  * @param   user        Username to Access the mySQL Database
@@ -22,7 +27,7 @@ MYSQL *init_mysql(
  *
  * return   Array of Hashtables, where each Hashtable represents a row in the mySQL Database
  */
-hash_table **query(MYSQL *conn, char *query);
+JSON *query(MYSQL *conn, char *query);
 
 /*
  * @param   result  Results returned from mySQL
