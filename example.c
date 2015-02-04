@@ -5,6 +5,5 @@ int main() {
     hash_table **json = query(sql, /* mySQL QUERY HERE */);
 
     //Do What You Want Here
-
     return 0;
 }
